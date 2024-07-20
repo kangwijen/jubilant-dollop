@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Side Forgery Request</title>
+</head>
+<body>
+    <h1>Server Side Forgery Request</h1>
+    <form id="ssrf">
+        <p>Get message of the day</p>
+        <input type="submit" value="Submit">
+    </form>
+
+    <p id="motd"></p>
+
+    <script>
+        document.getElementById("ssrf").addEventListener("submit", function(event) {
+            event.preventDefault();
+            fetch("/ssrf/request", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    url: "http://127.0.0.1:5001/api",
+                    method: "GET"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("motd").innerText = data.data;
+            });
+        });
+    </script>
+</body>
+</html>

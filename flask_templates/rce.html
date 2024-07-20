@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Code Execution</title>
+</head>
+<body>
+    <h1>Remote Code Execution</h1>
+    <p>Tracert This Server!</p>
+    <form id="rce">
+        <input type="text" name="ip" placeholder="Target IP Address">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('rce').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const ip = document.querySelector('input[name="ip"]').value;
+
+            fetch('/rce/command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ip }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    const previousOutput = document.querySelector('p');
+                    if (previousOutput) {
+                        previousOutput.remove();
+                    }
+
+                    const output = document.createElement('p');
+                    output.innerHTML = data.output.replace(/\n/g, '<br>');
+                    document.body.appendChild(output);
+                }
+            })
+            .catch(error => {
+                alert('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

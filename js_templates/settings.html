@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+</head>
+<body>
+    <h1>Settings</h1>
+    <form id="settings">
+        <input type="hidden" id="usernameInput" name="username" value="">
+        <input type="password" name="newPassword" placeholder="New Password">
+        <input type="password" name="confirmPassword" placeholder="Confirm Password">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        fetch('/get-username', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('usernameInput').value = data.username;
+            } else {
+                alert('Failed to get username. Please login again.');
+                window.location.href = '/login';
+            }
+        });
+
+        document.getElementById('settings').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var username = document.getElementById('usernameInput').value;
+            var newPassword = document.querySelector('input[name="newPassword"]').value;
+            var confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            fetch('/settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    newPassword: newPassword
+                }),
+                credentials: 'include'
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                if (data.success) {
+                    alert('Password updated successfully');
+                    window.location.href = '/login';
+                } else {
+                    alert(data.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

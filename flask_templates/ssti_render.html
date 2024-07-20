@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Side Template Injection</title>
+</head>
+<body>
+    <h1>Server Side Template Injection</h1>
+    <form id="ssti">
+        <label for="text">Enter your name:</label>
+        <input type="text" id="text" name="text">
+        <input type="submit" value="Submit">
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById("ssti").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var text = document.getElementById("text").value;
+            fetch("/ssti/render", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({text: text})
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerHTML = data;
+            });
+        });
+    </script>
+</body>
+</html>

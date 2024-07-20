@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM XSS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>DOM XSS</h1>
+    <form id="searchForm">
+        <label for="search">Enter some text:</label>
+        <input type="text" id="search" name="search">
+        <button type="submit">Submit</button>
+    </form>
+    <p>You have searched for: <span id="userInput"></span></p>
+    {% if products %}
+        <ul id="productList">
+            {% for product in products %}
+                <li>{{ product[1] }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <ul id="productList"></ul>
+
+    <script>
+        $(document).ready(function() {
+            $('#searchForm').on('submit', function(event) {
+                event.preventDefault();
+                const search = $('#search').val();
+                
+                if (!search) {
+                    alert('Please enter some text');
+                    return;
+                }
+
+                const blacklist = ['script', 'onload', 'onerror', 'alert'];
+
+                if (blacklist.some(word => search.includes(word))) {
+                    alert('You cannot run JavaScript in your search');
+                    $('#search').val('');
+                    return;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/xss/dom',
+                    data: { search: search },
+                    success: function(products) {
+                        $('#userInput').html(search);
+                        $('#productList').empty();
+                        products.forEach(function(product) {
+                            $('#productList').append('<li>' + product[0] + '</li>');
+                        });
+                    },
+                    error: function() {
+                        alert('Error fetching products');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

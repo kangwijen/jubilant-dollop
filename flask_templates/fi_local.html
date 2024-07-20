@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local File Inclusion</title>
+</head>
+<body>
+    <h1>Local File Inclusion</h1>
+    <p>Browse Random Pics</p>
+    <ul>
+        <li><a href="?image=random1.jpg">Random 1</a></li>
+        <li><a href="?image=random2.jpg">Random 2</a></li>
+        <li><a href="?image=random3.jpg">Random 3</a></li>
+    </ul>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const filename = urlParams.get('image');
+
+        if (filename) {
+            fetch('/fi/local', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ filename }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const img = document.createElement('img');
+                    img.src = `data:${data.mime_type};base64,${data.data}`;
+                    document.body.appendChild(img);
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                alert('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

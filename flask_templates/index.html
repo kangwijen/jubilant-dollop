@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">Vulnerability Types</h1>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h4 class="mb-1">XSS</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/xss/reflected" class="list-group-item list-group-item-action">Reflected XSS</a></li>
+                            <li><a href="/xss/stored" class="list-group-item list-group-item-action">Stored XSS</a></li>
+                            <li><a href="/xss/dom" class="list-group-item list-group-item-action">DOM XSS</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">SQL Injection</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/sql/inband" class="list-group-item list-group-item-action">In-band SQL</a></li>
+                            <li><a href="/sql/blind" class="list-group-item list-group-item-action">Blind SQL</a></li>
+                            <li><a href="/sql/oob" class="list-group-item list-group-item-action">Out-of-Band SQL</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">Broken Access Control</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/bac/horizontal" class="list-group-item list-group-item-action">Horizontal Escalation</a></li>
+                            <li><a href="/bac/vertical" class="list-group-item list-group-item-action">Vertical Escalation</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">Business Logic Vulnerability</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/blv/login" class="list-group-item list-group-item-action">Business Logic Vulnerability</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">Mass Assignment Vulnerability</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/mass/register" class="list-group-item list-group-item-action">Mass Assignment Vulnerability</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">File Inclusion</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/fi/local" class="list-group-item list-group-item-action">Local File Inclusion</a></li>
+                            <li><a href="/fi/remote" class="list-group-item list-group-item-action">Remote File Inclusion</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">Remote Code Execution</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/rce/command" class="list-group-item list-group-item-action">Remote Code Execution</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">Server Side Request Forgery</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/ssrf/request" class="list-group-item list-group-item-action">Server Side Request Forgery</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">Server Side Template Injection</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/ssti/render" class="list-group-item list-group-item-action">Server Side Template Injection</a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group-item">
+                        <h4 class="mb-1">Deserialization</h4>
+                        <ul class="list-unstyled ml-3">
+                            <li><a href="/deserialization/pickle" class="list-group-item list-group-item-action">Deserialization</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

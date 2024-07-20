@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Logic Vulnerability</title>
+</head>
+<body>
+    <h1>Suspicious attempt detected!</h1>
+    <p>Enter the OTP sent to your email</p>
+    <form id="otp_form">
+        <label for="otp">OTP:</label><br>
+        <input type="text" id="otp" name="otp"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById('otp_form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var otp = document.getElementById('otp').value;
+            
+            fetch('/blv/otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({otp: otp})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/blv/{{ page }}';
+                } else {
+                    alert('Invalid OTP!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

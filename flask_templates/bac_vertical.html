@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Broken Access Control</title>
+</head>
+<body>
+    <h1>Horizontal Broken Access Control</h1>
+    <p>Hi, {{ user[0][1] }}!</p>
+    <p>Your ID is {{ user[0][0] }}</p>
+    <p>Your password is {{ user[0][2] }}</p>
+
+    {% if user[0][1] == 'admin' %}
+        <p>Your flag is {{ flag }}</p>
+    {% endif %}
+</body>
+</html>
